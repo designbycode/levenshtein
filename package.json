@@ -1,2 +1,42 @@
 {
+  "name": "levenshtein",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "type": "module",
+  "author": "Claude Myburgh <claude@designbycode.co.za>",
+  "license": "MIT",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "tsc --declaration && vite build",
+    "clean": "rd /s /q dist .cache>nul 2>&1|echo.>nul",
+    "test": "vitest",
+    "pretty": "prettier --write \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "prettier": "^3.3.2",
+    "terser": "^5.31.1",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^1.6.0"
+  }
 }
