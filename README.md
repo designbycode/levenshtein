@@ -14,20 +14,42 @@
 The Levenshtein Distance Calculator is a utility class that calculates the Levenshtein distance between two strings. The Levenshtein distance is a measure of the minimum number of single-character edits (insertions, deletions or 
 substitutions) required to change one word into the other.
 
+## Installation
+
+To use this plugin
+
+#### Using pnpm
+
+```bash
+pnpm add @designbycode/levenshtein
+```
+
+#### Using npm
+
+```bash
+npm install @designbycode/levenshtein
+```
+
+#### Using yarn
+
+```bash
+yarn add @designbycode/levenshtein
+```
+
 
 ## Usage
 ### Importing the Class
-To use the Levenshtein Distance Calculator, you need to import the LevenshteinDistance class:
+To use the Levenshtein Distance Calculator, you need to import the Levenshtein class:
 
 ```typescript
-import { LevenshteinDistance } from './LevenshteinDistance';
+import { Levenshtein } from '@designbycode/levenshtein';
 ```
 
 ### Calculating the Levenshtein Distance
 To calculate the Levenshtein distance between two strings, call the calculate method and pass the two strings as arguments:
 
 ```typescript
-const distance = LevenshteinDistance.calculate('hello', 'hallo');
+const distance = Levenshtein.calculate('hello', 'hallo');
 console.log(distance); // Output: 1
 ```
 
@@ -39,9 +61,9 @@ If either of the input strings is not a string, the calculate method will throw 
 
 ```typescript
 try {
-  const distance = LevenshteinDistance.calculate(123, 'hello');
+  const distance = Levenshtein.calculate(123, 'hello');
 } catch (error) {
-  console.error(error); // Output: TypeError: Argument 1 passed to LevenshteinDistance::calculate() must be of the type string
+  console.error(error); // Output: TypeError: Argument 1 passed to Levenshtein::calculate() must be of the type string
 }
 ```
 
@@ -52,7 +74,7 @@ The Levenshtein distance can be used to measure the similarity between two strin
 ```typescript
 const string1 = 'kitten';
 const string2 = 'sitting';
-const distance = LevenshteinDistance.calculate(string1, string2);
+const distance = Levenshtein.calculate(string1, string2);
 console.log(distance); // Output: 3
 ```
 
@@ -62,7 +84,7 @@ The Levenshtein distance can be used to implement fuzzy string matching. For exa
 ```typescript
 const query = 'hello';
 const strings = ['hallo', 'helloo', 'hellllo', 'goodbye'];
-const distances = strings.map((string) => LevenshteinDistance.calculate(query, string));
+const distances = strings.map((string) => Levenshtein.calculate(query, string));
 console.log(distances); // Output: [1, 1, 2, 6]
 ```
 
