@@ -49,11 +49,11 @@ import { Levenshtein } from '@designbycode/levenshtein';
 To calculate the Levenshtein distance between two strings, call the calculate method and pass the two strings as arguments:
 
 ```typescript
-const distance = Levenshtein.calculate('hello', 'hallo');
-console.log(distance); // Output: 1
+const calculate = Levenshtein.calculate('hello', 'hallo');
+console.log(calculate.distance); // Output: 1
 ```
 
-The `calculate` method returns the Levenshtein distance between the two strings as a number.
+The `calculate` method returns the Levenshtein an object with distance between the two strings as a number. and similarity percentage.
 
 
 ## Error Handling
@@ -61,7 +61,7 @@ If either of the input strings is not a string, the calculate method will throw 
 
 ```typescript
 try {
-  const distance = Levenshtein.calculate(123, 'hello');
+  const calculate = Levenshtein.calculate(123, 'hello').distance;
 } catch (error) {
   console.error(error); // Output: TypeError: Argument 1 passed to Levenshtein::calculate() must be of the type string
 }
@@ -74,7 +74,7 @@ The Levenshtein distance can be used to measure the similarity between two strin
 ```typescript
 const string1 = 'kitten';
 const string2 = 'sitting';
-const distance = Levenshtein.calculate(string1, string2);
+const distance = Levenshtein.calculate(string1, string2).distance;
 console.log(distance); // Output: 3
 ```
 
@@ -84,8 +84,94 @@ The Levenshtein distance can be used to implement fuzzy string matching. For exa
 ```typescript
 const query = 'hello';
 const strings = ['hallo', 'helloo', 'hellllo', 'goodbye'];
-const distances = strings.map((string) => Levenshtein.calculate(query, string));
+const distances = strings.map((string) => Levenshtein.calculate(query, string).distance);
 console.log(distances); // Output: [1, 1, 2, 6]
+```
+
+### 5 Real-world Examples of Levenshtein Distance
+
+```typescript
+import Levenshtein from './Levenshtein'; // Assuming you have the Levenshtein class
+
+// 1. Spell Checking/Autocorrection
+
+const dictionary = ['apple', 'banana', 'orange', 'grape'];
+const misspelledWord = 'aple';
+
+const suggestions = dictionary
+    .map(word => ({ word, distance: Levenshtein.calculate(misspelledWord, word).distance }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3);
+
+console.log("Spellcheck suggestions:", suggestions);
+
+
+
+// 2. DNA Sequencing and Bioinformatics
+
+const sequence1 = 'GAGCCTACTAACGGGAT';
+const sequence2 = 'CATCGTAATGACGGCCT';
+
+const distance = Levenshtein.calculate(sequence1, sequence2).distance;
+console.log(`DNA Sequence Distance: ${distance}`);
+
+
+// 3. Information Retrieval and Search Engines
+
+const documents = [
+    { id: 1, title: "The Apple Orchard" },
+    { id: 2, title: "Banana Republic" },
+    { id: 3, title: "Orange County" }
+];
+
+const query = "aple orchad";
+
+const searchResults = documents
+    .map(doc => ({ doc, distance: Levenshtein.calculate(query, doc.title).distance }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 2); // Top 2 results
+
+console.log("Search Results:", searchResults);
+
+
+
+
+// 4. Record Linkage and Data Deduplication
+
+const records = [
+    { id: 1, name: "John Smith", address: "123 Main St" },
+    { id: 2, name: "Jon Smyth", address: "123 Main St" },
+    { id: 3, name: "Jane Doe", address: "456 Oak Ave" }
+];
+
+const threshold = 2;
+const duplicates = [];
+
+for (let i = 0; i < records.length; i++) {
+    for (let j = i + 1; j < records.length; j++) {
+        if (Levenshtein.calculate(records[i].name, records[j].name).distance <= threshold) {
+            duplicates.push([records[i], records[j]]);
+        }
+    }
+}
+
+console.log("Potential Duplicates:", duplicates);
+
+
+
+// 5. Password Strength Meters
+
+const commonPasswords = ["password", "123456", "qwerty"];
+const newPassword = "pa55wOrd";
+
+const isWeak = commonPasswords.some(common => Levenshtein.calculate(newPassword, common).distance <= 2);
+
+if (isWeak) {
+    console.log("Password is too similar to a common password.");
+} else {
+    console.log("Password seems OK.");
+}
+
 ```
 
 ## License

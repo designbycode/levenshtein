@@ -1,5 +1,8 @@
 
-
+interface LevenshteinResult {
+  distance: number;
+  similarity: number;
+}
 class Levenshtein {
     /**
      * Calculate the Levenshtein distance between two strings.
@@ -11,24 +14,33 @@ class Levenshtein {
      * @param str2 The second string.
      * @returns The Levenshtein distance between the two strings.
      */
-    public static calculate(str1: string, str2: string): number {
+    public static calculate(str1: string, str2: string): LevenshteinResult {
+
+      if (typeof str1 !== 'string' || typeof str2 !== 'string') {
+        return {
+          distance: -1,
+          similarity: 0
+        }; // Handle invalid input
+      }
 
       // Create a 2D array to store the distances between substrings of str1 and str2
       const distanceMatrix: number[][] = [];
 
+
       // Initialize the first row and column of the matrix
-      const str1Length: number = str1.length;
-      const str2Length: number = str2.length;
-      for (let i: number = 0; i <= str1Length; i++) {
+      const stringOneLength: number = str1.length;
+      const stringTwoLength: number = str2.length;
+
+      for (let i: number = 0; i <= stringOneLength; i++) {
         distanceMatrix[i] = [i]; // Distance from empty string to str1 substrings
       }
-      for (let j: number = 0; j <= str2Length; j++) {
+      for (let j: number = 0; j <= stringTwoLength; j++) {
         distanceMatrix[0][j] = j; // Distance from empty string to str2 substrings
       }
 
       // Iterate through the characters of str1 and str2
-      for (let i: number = 1; i <= str1Length; i++) {
-        for (let j: number = 1; j <= str2Length; j++) {
+      for (let i: number = 1; i <= stringOneLength; i++) {
+        for (let j: number = 1; j <= stringTwoLength; j++) {
           // Calculate the cost of substitution (0 if characters match, 1 if they don't)
           const substitutionCost: number = (str1[i - 1] === str2[j - 1]) ? 0 : 1;
 
@@ -43,7 +55,15 @@ class Levenshtein {
       }
 
       // Return the Levenshtein distance between the entire strings
-      return distanceMatrix[str1Length][str2Length];
+      const distance = distanceMatrix[stringOneLength][stringTwoLength];
+
+      const maxLength = Math.max(stringOneLength, stringTwoLength);
+      const similarity = (maxLength - distance) / maxLength * 100;
+
+      return {
+        distance,
+        similarity,
+      };
     }
   }
 
