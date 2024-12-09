@@ -4,7 +4,7 @@
 ![npm](https://img.shields.io/npm/dt/%40designbycode/levenshtein)
 ![NPM](https://img.shields.io/npm/l/%40designbycode%2Flevenshtein)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/%40designbycode%2Flevenshtein)
-[![Test](https://github.com/DesignByCode/levenshtein/actions/workflows/test.yaml/badge.svg)](https://github.com/DesignByCode/levenshtein/actions/workflows/test.yaml)
+[![Test](https://github.com/designbycode/levenshtein/actions/workflows/test.yml/badge.svg)](https://github.com/designbycode/levenshtein/actions/workflows/test.yml)
 ![ts](https://badgen.net/badge/Built%20With/TypeScript/blue)
 [![GitHub stars](https://img.shields.io/github/stars/DesignByCode/levenshtein?style=social)](https://github.com/DesignByCode/levenshtein/stargazers)
 
