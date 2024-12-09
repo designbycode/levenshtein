@@ -1,6 +1,6 @@
 {
   "name": "@designbycode/levenshtein",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "The Levenshtein Distance Calculator is a utility class that calculates the Levenshtein distance between two strings. The Levenshtein distance is a measure of the minimum number of single-character edits (insertions, deletions or substitutions) required to change one word into the other.",
   "repository": "https://github.com/designbycode/levenshtein.git",
   "homepage": "https://github.com/designbycode/levenshtein/#readme",
